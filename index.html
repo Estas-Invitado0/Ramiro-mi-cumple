@@ -5,7 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#10121c">
   <title>¡Ramiro cumple! | Invitación</title>
+  <link rel="preload" href="assets/barlow-condensed-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/rajdhani-semibold.woff2" as="font" type="font/woff2" crossorigin>
   <style>
+    @font-face {
+      font-family: "Barlow Condensed";
+      src: url("assets/barlow-condensed-bold.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Rajdhani";
+      src: url("assets/rajdhani-semibold.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+    }
+
     :root {
       color-scheme: dark;
       --ink: #fff9e9;
@@ -14,6 +32,8 @@
       --yellow: #ffd43b;
       --blue: #43d9ff;
       --panel: rgba(19, 22, 35, .86);
+      --font-display: "Barlow Condensed", Impact, "Arial Narrow", sans-serif;
+      --font-copy: "Rajdhani", "Trebuchet MS", Arial, sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -23,7 +43,8 @@
       margin: 0;
       overflow-x: hidden;
       color: var(--ink);
-      font-family: "Trebuchet MS", Arial, sans-serif;
+      font-family: var(--font-copy);
+      font-weight: 600;
       background:
         linear-gradient(rgba(9, 13, 29, .32), rgba(9, 13, 29, .55)),
         url("assets/background.jpg") center top / cover scroll,
@@ -91,7 +112,7 @@
       margin: 0 0 13px;
       color: var(--yellow);
       font-size: .78rem;
-      font-weight: 900;
+      font-weight: 600;
       letter-spacing: .22em;
       text-transform: uppercase;
     }
@@ -104,28 +125,35 @@
       background: currentColor;
     }
 
+    .brand-logo {
+      display: block;
+      width: min(52%, 200px);
+      height: auto;
+      margin: 0 auto 2px;
+    }
+
     h1, h2, p { margin-top: 0; }
 
     h1 {
       margin: 0;
-      font-family: Impact, "Arial Narrow", sans-serif;
+      font-family: var(--font-display);
       font-size: clamp(5rem, 19vw, 9rem);
-      font-weight: 900;
+      font-weight: 700;
       letter-spacing: -.045em;
       line-height: .9;
       text-transform: uppercase;
       transform: skew(-5deg);
-      text-shadow: 0 5px 0 #b51618, 0 9px 0 #741215, 0 16px 28px rgba(0,0,0,.55);
+      filter: drop-shadow(0 5px 0 #b51618) drop-shadow(0 12px 14px rgba(0,0,0,.45));
     }
 
     h1 span {
       display: block;
-      color: var(--red);
-      background: linear-gradient(180deg, #ffef78 0%, #ffb632 25%, #ff4938 62%, #ed162a 100%);
+      color: var(--yellow);
+      background: linear-gradient(180deg, #fff36b 0%, #ffd43b 58%, #ffb51b 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 0 #991d22);
+      filter: drop-shadow(0 2px 0 #b51618);
     }
 
     .age-badge {
@@ -136,10 +164,10 @@
       border-radius: 999px;
       color: var(--yellow);
       background: rgba(16, 18, 28, .95);
-      box-shadow: 0 4px 0 rgba(184, 132, 18, .8), 0 5px 14px rgba(0,0,0,.24);
-      font-family: Impact, "Arial Narrow", sans-serif;
+      box-shadow: 0 4px 0 #a71e1b, 0 5px 14px rgba(0,0,0,.24);
+      font-family: var(--font-display);
       font-size: clamp(1.7rem, 6vw, 2.5rem);
-      font-weight: 900;
+      font-weight: 700;
       letter-spacing: .08em;
       line-height: 1;
       text-transform: uppercase;
@@ -150,7 +178,7 @@
       margin: 22px 0 0;
       color: var(--muted);
       font-size: clamp(1rem, 3.8vw, 1.3rem);
-      font-weight: 800;
+      font-weight: 600;
     }
 
     .cars {
@@ -175,27 +203,322 @@
 
     .cars img {
       position: relative;
-      width: 37%;
-      max-width: 230px;
-      max-height: 220px;
+      flex: 0 1 36%;
+      width: 36%;
+      max-width: 250px;
+      height: auto;
       object-fit: contain;
+      --car-scale: .94;
+      --float-offset: 0px;
       animation: float 3s ease-in-out infinite;
     }
 
-    .cars img:nth-child(2) {
-      z-index: 1;
-      width: 43%;
-      max-width: 260px;
-      margin: 0 -9%;
+    .cars .car-yellow {
+      z-index: 2;
+      flex-basis: 38%;
+      width: 38%;
+      max-width: 280px;
+      margin: 0 -8%;
+      --car-scale: 1.08;
+      --float-offset: 5px;
       animation-delay: -.9s;
     }
 
-    .cars img:nth-child(3) { animation-delay: -1.7s; }
+    .cars .car-orange,
+    .cars .car-green {
+      z-index: 1;
+      --float-offset: 0px;
+    }
+
+    .cars .car-green { animation-delay: -1.7s; }
 
     @keyframes float {
-      0%, 100% { transform: translateY(3px) rotate(-2deg); }
-      50% { transform: translateY(-8px) rotate(1deg); }
+      0%, 100% { transform: translateY(calc(var(--float-offset) + 3px)) rotate(-2deg) scale(var(--car-scale)); }
+      50% { transform: translateY(calc(var(--float-offset) - 8px)) rotate(1deg) scale(var(--car-scale)); }
     }
+
+    .music-player {
+      width: min(100%, 620px);
+      margin: 12px auto 34px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(31,38,57,.98), rgba(12,16,29,.98));
+      box-shadow: 0 9px 0 rgba(0,0,0,.25), 0 16px 32px rgba(0,0,0,.2);
+      text-align: left;
+    }
+
+    .radio-deck {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3.2;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 11px;
+      background: #111;
+      box-shadow: 0 5px 14px rgba(0,0,0,.45);
+    }
+
+    .radio-face {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .radio-screen {
+      position: absolute;
+      top: 48%;
+      left: 43.8%;
+      display: grid;
+      width: 41.7%;
+      height: 29%;
+      grid-template-rows: auto minmax(0, 1fr) auto auto;
+      gap: 2px;
+      padding: 2.2% 2.5%;
+      overflow: hidden;
+      border: 1px solid rgba(135,255,120,.22);
+      border-radius: 2px;
+      color: #a8ff92;
+      background: #071007;
+      box-shadow: inset 0 0 10px rgba(89,255,68,.1), 0 0 8px rgba(70,255,74,.12);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .screen-top,
+    .screen-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .screen-top {
+      color: #76d870;
+      font-size: clamp(5px, 1.1vw, 9px);
+      letter-spacing: .08em;
+    }
+
+    .screen-title {
+      align-self: center;
+      overflow: hidden;
+      font-size: clamp(8px, 2.3vw, 18px);
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-shadow: 0 0 7px rgba(136,255,105,.55);
+    }
+
+    .screen-bottom {
+      color: #86e982;
+      font-size: clamp(6px, 1.35vw, 10px);
+    }
+
+    .seek-control {
+      width: 100%;
+      height: 10px;
+      margin: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .seek-control::-webkit-slider-runnable-track {
+      height: 3px;
+      border-radius: 3px;
+      background: rgba(143,255,116,.32);
+    }
+
+    .seek-control::-moz-range-track {
+      height: 3px;
+      border-radius: 3px;
+      background: rgba(143,255,116,.32);
+    }
+
+    .seek-control::-webkit-slider-thumb {
+      width: 8px;
+      height: 8px;
+      margin-top: -2.5px;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 0;
+      border-radius: 50%;
+      background: #a8ff92;
+      box-shadow: 0 0 5px #72ff62;
+    }
+
+    .seek-control::-moz-range-thumb {
+      width: 8px;
+      height: 8px;
+      border: 0;
+      border-radius: 50%;
+      background: #a8ff92;
+      box-shadow: 0 0 5px #72ff62;
+    }
+
+    .deck-skip {
+      position: absolute;
+      top: 10%;
+      width: 6.6%;
+      height: 28%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .deck-skip:focus-visible {
+      outline: 2px solid var(--yellow);
+      outline-offset: -3px;
+    }
+
+    .deck-previous { left: 79.7%; }
+    .deck-next { left: 86.5%; }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(16px, 5vw, 28px);
+      margin: 20px 0;
+    }
+
+    .transport-button {
+      display: grid;
+      min-width: 58px;
+      min-height: 58px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 50%;
+      color: var(--ink);
+      background: linear-gradient(145deg, #343a48, #171b24);
+      box-shadow: 0 5px 0 #090b10, 0 7px 13px rgba(0,0,0,.32);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform .14s ease, filter .14s ease;
+    }
+
+    .transport-button:active { transform: translateY(3px) scale(.97); }
+    .transport-button:hover { filter: brightness(1.16); }
+    .transport-button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
+
+    .transport-button svg { width: 25px; height: 25px; fill: currentColor; }
+
+    .transport-primary {
+      width: 82px;
+      height: 82px;
+      border: 3px solid #bdffaf;
+      color: #101914;
+      background: linear-gradient(145deg, #72ff79, #22bd56);
+      box-shadow: 0 7px 0 #13753c, 0 10px 22px rgba(49,255,102,.22);
+    }
+
+    .transport-primary svg { width: 34px; height: 34px; }
+    .transport-primary .icon-pause { display: none; }
+    .transport-primary[aria-pressed="true"] .icon-play { display: none; }
+    .transport-primary[aria-pressed="true"] .icon-pause { display: block; }
+
+    .playlist {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .track-row {
+      display: grid;
+      width: 100%;
+      min-height: 52px;
+      grid-template-columns: 32px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 9px;
+      color: var(--muted);
+      background: rgba(255,255,255,.035);
+      font: 600 1rem var(--font-copy);
+      text-align: left;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .track-row:hover,
+    .track-row.is-active {
+      border-color: rgba(119,255,121,.58);
+      color: var(--ink);
+      background: rgba(63,255,103,.08);
+    }
+
+    .track-row:focus-visible {
+      outline: 2px solid var(--yellow);
+      outline-offset: 2px;
+    }
+
+    .track-number {
+      color: #75ed86;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      text-align: center;
+    }
+
+    .track-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .track-duration {
+      color: #8d9e91;
+      font: 600 .88rem var(--font-copy);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .track-row.is-active .track-duration { color: #a8ff92; }
+
+    .playlist-disclosure { margin-top: 2px; }
+
+    .playlist-disclosure summary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 30px;
+      color: #9197a7;
+      font: 600 .76rem var(--font-copy);
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .playlist-disclosure summary::-webkit-details-marker { display: none; }
+    .playlist-disclosure summary:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+
+    .playlist-chevron {
+      width: 11px;
+      height: 11px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+      transition: transform .18s ease;
+    }
+
+    .playlist-disclosure[open] .playlist-chevron { transform: rotate(180deg); }
+
+    .music-note {
+      margin: 12px 0 0;
+      color: #9197a7;
+      font: 600 .82rem var(--font-copy);
+      text-align: center;
+    }
+
+    .audio-element { display: none; }
 
     .info-actions {
       display: grid;
@@ -206,41 +529,163 @@
     }
 
     .action-card {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 16px;
-      min-height: 208px;
-      padding: 19px;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 17px;
-      background: rgba(255,255,255,.055);
+      gap: 14px;
+      min-height: 250px;
+      padding: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(31, 38, 57, .98), rgba(12, 16, 29, .98));
+      box-shadow: 0 8px 0 rgba(0,0,0,.24), inset 0 1px rgba(255,255,255,.06);
+    }
+
+    .action-card::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 5px;
+      content: "";
+      background: linear-gradient(90deg, var(--red) 0 34%, var(--yellow) 34% 68%, var(--blue) 68%);
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 28px;
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .card-index {
+      display: grid;
+      width: 27px;
+      height: 27px;
+      flex: 0 0 27px;
+      place-items: center;
+      border: 1px solid var(--yellow);
+      border-radius: 7px 2px 7px 2px;
+      color: var(--yellow);
+      font-size: .95rem;
+    }
+
+    .card-checkers {
+      width: 28px;
+      height: 14px;
+      margin-left: auto;
+      background: repeating-conic-gradient(#fff 0 25%, #222735 0 50%) 0 0 / 8px 8px;
+      transform: skew(-15deg);
     }
 
     .detail-label {
       display: block;
       margin-bottom: 4px;
       color: var(--blue);
-      font-size: .7rem;
-      font-weight: 900;
-      letter-spacing: .16em;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .12em;
       text-transform: uppercase;
+      font-family: var(--font-copy);
     }
 
     .detail strong {
       display: block;
-      font-size: clamp(1rem, 4vw, 1.27rem);
-      font-weight: 900;
+      font-size: clamp(1.1rem, 4.4vw, 1.35rem);
+      font-weight: 600;
       line-height: 1.25;
+      font-family: var(--font-copy);
     }
 
-    .detail + .detail { margin-top: 13px; }
+    .date-display {
+      display: flex !important;
+      align-items: baseline;
+      gap: 9px;
+      color: var(--yellow);
+      font-family: var(--font-display) !important;
+      font-weight: 700 !important;
+      line-height: .95 !important;
+      text-transform: uppercase;
+    }
+
+    .date-day {
+      color: #fff36b;
+      font-size: 2.8rem;
+      text-shadow: 2px 3px 0 #a71e1b;
+    }
+
+    .date-month {
+      font-size: 1.35rem;
+      letter-spacing: .07em;
+    }
+
+    .time-range {
+      display: flex !important;
+      align-items: center;
+      gap: 7px;
+      color: var(--ink);
+      font-family: var(--font-display) !important;
+      font-size: 1.5rem !important;
+      font-weight: 700 !important;
+      line-height: 1 !important;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time-range span {
+      padding: 5px 8px;
+      border-radius: 5px;
+      background: rgba(67, 217, 255, .1);
+      border-bottom: 2px solid var(--blue);
+    }
+
+    .time-range .time-separator {
+      padding: 0;
+      border: 0;
+      color: var(--red);
+      background: none;
+      font-size: 1rem;
+    }
+
+    .time-range small {
+      color: var(--muted);
+      font: 600 .8rem var(--font-copy);
+      letter-spacing: .08em;
+    }
+
+    .location-name {
+      color: #fff36b;
+      font-family: var(--font-display) !important;
+      font-size: 1.65rem !important;
+      font-weight: 700 !important;
+      letter-spacing: .045em;
+      line-height: 1 !important;
+      text-shadow: 2px 2px 0 #a71e1b;
+      text-transform: uppercase;
+    }
+
+    .location-name span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font: 600 1rem var(--font-copy);
+      letter-spacing: .03em;
+      text-shadow: none;
+      text-transform: none;
+    }
 
     .message {
       margin: 0 0 18px;
-      font-family: Impact, "Arial Narrow", sans-serif;
+      font-family: var(--font-display);
       font-size: clamp(1.7rem, 6vw, 2.35rem);
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: .015em;
       text-transform: uppercase;
     }
@@ -263,9 +708,9 @@
     .count-number {
       display: block;
       color: var(--yellow);
-      font-family: Impact, "Arial Narrow", sans-serif;
+      font-family: var(--font-display);
       font-size: clamp(2.1rem, 9vw, 3.3rem);
-      font-weight: 900;
+      font-weight: 700;
       line-height: .95;
       font-variant-numeric: tabular-nums;
     }
@@ -274,8 +719,8 @@
       display: block;
       margin-top: 7px;
       color: var(--muted);
-      font-size: .65rem;
-      font-weight: 900;
+      font-size: .72rem;
+      font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
     }
@@ -289,10 +734,24 @@
       border: 0;
       border-radius: 999px;
       color: #16151a;
-      font: 900 1rem "Trebuchet MS", Arial, sans-serif;
+      font: 700 1.1rem var(--font-copy);
       text-decoration: none;
       transition: transform .18s ease, box-shadow .18s ease;
       margin-top: auto;
+    }
+
+    .action-card .button {
+      min-height: 48px;
+      justify-content: space-between;
+      padding-inline: 16px;
+      border-radius: 9px;
+      font: 700 1.05rem var(--font-copy);
+      letter-spacing: .02em;
+    }
+
+    .action-card .button::after {
+      content: "→";
+      font: 700 1.3rem var(--font-copy);
     }
 
     .button:hover { transform: translateY(-3px); }
@@ -323,7 +782,11 @@
       .invitation { border-radius: 23px; }
       .content { padding: 30px 20px; }
       .info-actions { grid-template-columns: 1fr; gap: 10px; }
-      .action-card { min-height: 0; padding: 16px; }
+      .action-card { min-height: 0; padding: 18px; }
+      .music-player { padding: 15px; border-radius: 16px; }
+      .player-controls { margin: 17px 0; }
+      .transport-primary { width: 76px; height: 76px; }
+      .track-row { min-height: 50px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -337,15 +800,63 @@
       <div class="top-stripe" aria-hidden="true"></div>
       <div class="content">
         <p class="eyebrow">¡Estás invitado!</p>
+        <img class="brand-logo" src="assets/hot-wheels-logo.png" alt="Hot Wheels" width="1861" height="541" fetchpriority="high" decoding="async">
         <h1><span>Ramiro</span></h1>
         <p class="age-badge">¡Cumplo 7!</p>
         <p class="subtitle">¡Preparate para una fiesta a toda velocidad!</p>
 
         <div class="cars" aria-label="Autos de carrera">
-          <img src="assets/car-8.png" alt="Auto de carrera azul" width="700" height="476" fetchpriority="high" decoding="async">
-          <img src="assets/car-10.png" alt="Auto de carrera rojo" width="1002" height="672" fetchpriority="high" decoding="async">
-          <img src="assets/car-9.png" alt="Auto de carrera amarillo" width="1002" height="672" fetchpriority="high" decoding="async">
+          <img class="car-orange" src="assets/car-8.png" alt="Auto de carrera naranja" width="700" height="476" fetchpriority="high" decoding="async">
+          <img class="car-yellow" src="assets/car-10.png" alt="Auto de carrera amarillo" width="1002" height="672" fetchpriority="high" decoding="async">
+          <img class="car-green" src="assets/car-9.png" alt="Auto de carrera verde" width="1002" height="672" fetchpriority="high" decoding="async">
         </div>
+
+        <section class="music-player" aria-label="Reproductor de música">
+          <div class="radio-deck">
+            <img class="radio-face" src="assets/pioneer-radio.webp" alt="" width="1365" height="768" decoding="async">
+            <div class="radio-screen" aria-live="polite">
+              <div class="screen-top">
+                <span>USB · PLAYER</span>
+                <span id="screen-track-index">01 / 03</span>
+              </div>
+              <div class="screen-title" id="screen-track-title">RENAULT 5 TURBO</div>
+              <div class="screen-bottom">
+                <span id="screen-status">LISTO PARA SALIR</span>
+                <span><span id="screen-current-time">00:00</span> / <span id="screen-duration">01:33</span></span>
+              </div>
+              <input class="seek-control" id="music-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Posición de la canción">
+            </div>
+            <button class="deck-skip deck-previous" id="deck-previous" type="button" aria-label="Canción anterior"></button>
+            <button class="deck-skip deck-next" id="deck-next" type="button" aria-label="Canción siguiente"></button>
+          </div>
+
+          <div class="player-controls" aria-label="Controles del reproductor">
+            <button class="transport-button" id="previous-track" type="button" aria-label="Canción anterior">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zm12.5.8a1 1 0 0 1 1.5.86v10.68a1 1 0 0 1-1.5.86l-8-5.34a1 1 0 0 1 0-1.72z"/></svg>
+            </button>
+            <button class="transport-button transport-primary" id="toggle-playback" type="button" aria-label="Reproducir canción" aria-pressed="false">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.8a1 1 0 0 1 1.52-.85l11.1 6.7a1.58 1.58 0 0 1 0 2.7l-11.1 6.7A1 1 0 0 1 7 19.2z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+            </button>
+            <button class="transport-button" id="next-track" type="button" aria-label="Canción siguiente">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM5.5 5.8A1 1 0 0 0 4 6.66v10.68a1 1 0 0 0 1.5.86l8-5.34a1 1 0 0 0 0-1.72z"/></svg>
+            </button>
+          </div>
+
+          <details class="playlist-disclosure">
+            <summary>
+              Lista de canciones
+              <svg class="playlist-chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg>
+            </summary>
+            <ol class="playlist" aria-label="Lista de canciones">
+              <li><button class="track-row is-active" type="button" data-track-index="0" aria-pressed="true"><span class="track-number">01</span><span class="track-name">RENAULT 5 TURBO</span><span class="track-duration">01:33</span></button></li>
+              <li><button class="track-row" type="button" data-track-index="1" aria-pressed="false"><span class="track-number">02</span><span class="track-name">MICHELIN CLUB</span><span class="track-duration">02:28</span></button></li>
+              <li><button class="track-row" type="button" data-track-index="2" aria-pressed="false"><span class="track-number">03</span><span class="track-name">SNOW RALLY</span><span class="track-duration">02:37</span></button></li>
+            </ol>
+          </details>
+          <p class="music-note">Tocá play para escuchar · No se reproduce automáticamente</p>
+          <audio class="audio-element" id="playlist-audio" preload="none"></audio>
+        </section>
 
         <p class="message">¡Te espero para festejar mi cumple!</p>
         <div class="countdown" role="timer" aria-label="Cuenta regresiva para el cumpleaños">
@@ -357,22 +868,32 @@
 
         <section class="info-actions" aria-label="Detalles y acciones de la fiesta">
           <div class="action-card">
-            <div class="detail">
-              <span class="detail-label">Fecha</span>
-              <strong>24 de octubre</strong>
+            <div class="card-heading">
+              <span class="card-index">01</span>
+              <span>Grilla de salida</span>
+              <span class="card-checkers" aria-hidden="true"></span>
             </div>
             <div class="detail">
-              <span class="detail-label">Horario</span>
-              <strong>18 a 21 hs</strong>
+              <span class="detail-label">Fecha de carrera</span>
+              <strong class="date-display"><span class="date-day">24</span><span class="date-month">Octubre</span></strong>
+            </div>
+            <div class="detail">
+              <span class="detail-label">Aceleramos de</span>
+              <strong class="time-range"><span>18:00</span><span class="time-separator">—</span><span>21:00</span><small>HS</small></strong>
             </div>
             <a class="button button-rsvp" href="https://wa.me/?text=%C2%A1Hola%21%20Confirmo%20mi%20asistencia%20al%20cumple%20de%20Ramiro%20el%2024%20de%20octubre." target="_blank" rel="noopener noreferrer">
               Confirmar asistencia
             </a>
           </div>
           <div class="action-card">
+            <div class="card-heading">
+              <span class="card-index">02</span>
+              <span>Próxima parada</span>
+              <span class="card-checkers" aria-hidden="true"></span>
+            </div>
             <div class="detail">
-              <span class="detail-label">Lugar</span>
-              <strong>Crucijuegos<br>(Hiper Libertad)</strong>
+              <span class="detail-label">Box de encuentro</span>
+              <strong class="location-name">Crucijuegos<span>Hiper Libertad</span></strong>
             </div>
             <a class="button button-map" href="https://maps.app.goo.gl/ZgxGAe62a5qJFNC79" target="_blank" rel="noopener noreferrer">
               Ver ubicación
@@ -405,6 +926,165 @@
 
     updateCountdown();
     window.setInterval(updateCountdown, 1000);
+
+    const tracks = [
+      { title: "RENAULT 5 TURBO", source: "assets/renault-5-turbo.mp3", duration: 93 },
+      { title: "MICHELIN CLUB", source: "assets/michelin-club.mp3", duration: 148 },
+      { title: "SNOW RALLY", source: "assets/snow-rally.mp3", duration: 157 }
+    ];
+    const audio = document.getElementById("playlist-audio");
+    const trackRows = [...document.querySelectorAll(".track-row")];
+    const screenTitle = document.getElementById("screen-track-title");
+    const screenIndex = document.getElementById("screen-track-index");
+    const screenStatus = document.getElementById("screen-status");
+    const screenCurrentTime = document.getElementById("screen-current-time");
+    const screenDuration = document.getElementById("screen-duration");
+    const progress = document.getElementById("music-progress");
+    const playButton = document.getElementById("toggle-playback");
+    const musicNote = document.querySelector(".music-note");
+    let selectedTrackIndex = 0;
+
+    function formatTime(seconds, roundToNearestSecond = false) {
+      const totalSeconds = Number.isFinite(seconds)
+        ? (roundToNearestSecond ? Math.round(seconds) : Math.floor(seconds))
+        : 0;
+      const minutes = Math.floor(totalSeconds / 60);
+      const remainingSeconds = totalSeconds % 60;
+      return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+    }
+
+    function setPlayerStatus(status) {
+      screenStatus.textContent = status;
+    }
+
+    function renderTrack() {
+      const track = tracks[selectedTrackIndex];
+      screenTitle.textContent = track.title;
+      screenIndex.textContent = `${String(selectedTrackIndex + 1).padStart(2, "0")} / ${String(tracks.length).padStart(2, "0")}`;
+      screenDuration.textContent = formatTime(track.duration, true);
+      screenCurrentTime.textContent = "00:00";
+      progress.value = "0";
+      progress.setAttribute("aria-valuetext", `00:00 de ${formatTime(track.duration, true)}`);
+
+      for (const [index, row] of trackRows.entries()) {
+        const isSelected = index === selectedTrackIndex;
+        row.classList.toggle("is-active", isSelected);
+        row.setAttribute("aria-pressed", String(isSelected));
+      }
+    }
+
+    function loadSelectedTrack() {
+      if (audio.dataset.trackIndex === String(selectedTrackIndex)) return;
+      audio.pause();
+      audio.src = tracks[selectedTrackIndex].source;
+      audio.dataset.trackIndex = String(selectedTrackIndex);
+      audio.load();
+    }
+
+    async function startPlayback() {
+      loadSelectedTrack();
+      setPlayerStatus("CARGANDO");
+
+      try {
+        await audio.play();
+      } catch (error) {
+        setPlayerStatus("ERROR DE AUDIO");
+        musicNote.textContent = "No se pudo reproducir esta canción. Revisá que el archivo esté publicado en assets.";
+        console.error(`No se pudo reproducir ${tracks[selectedTrackIndex].title}.`, error);
+      }
+    }
+
+    async function selectTrack(index, shouldPlay) {
+      selectedTrackIndex = (index + tracks.length) % tracks.length;
+      renderTrack();
+      musicNote.textContent = "Tocá play para escuchar · No se reproduce automáticamente";
+
+      if (shouldPlay) {
+        await startPlayback();
+      } else {
+        loadSelectedTrack();
+        setPlayerStatus("LISTO PARA SALIR");
+      }
+    }
+
+    function updatePlaybackPosition() {
+      const duration = Number.isFinite(audio.duration) ? audio.duration : tracks[selectedTrackIndex].duration;
+      const currentTime = Number.isFinite(audio.currentTime) ? audio.currentTime : 0;
+      screenCurrentTime.textContent = formatTime(currentTime);
+      screenDuration.textContent = formatTime(duration, true);
+      progress.value = String(duration > 0 ? (currentTime / duration) * 100 : 0);
+      progress.setAttribute("aria-valuetext", `${formatTime(currentTime)} de ${formatTime(duration, true)}`);
+    }
+
+    playButton.addEventListener("click", () => {
+      if (audio.paused) {
+        void startPlayback();
+      } else {
+        audio.pause();
+      }
+    });
+
+    function skipTrack(direction) {
+      const shouldPlay = !audio.paused;
+      if (direction < 0 && audio.currentTime > 3) {
+        audio.currentTime = 0;
+        updatePlaybackPosition();
+        return;
+      }
+      void selectTrack(selectedTrackIndex + direction, shouldPlay);
+    }
+
+    document.getElementById("previous-track").addEventListener("click", () => skipTrack(-1));
+    document.getElementById("deck-previous").addEventListener("click", () => skipTrack(-1));
+    document.getElementById("next-track").addEventListener("click", () => skipTrack(1));
+    document.getElementById("deck-next").addEventListener("click", () => skipTrack(1));
+
+    for (const row of trackRows) {
+      row.addEventListener("click", () => {
+        void selectTrack(Number(row.dataset.trackIndex), true);
+      });
+    }
+
+    progress.addEventListener("input", () => {
+      if (Number.isFinite(audio.duration) && audio.duration > 0) {
+        audio.currentTime = (Number(progress.value) / 100) * audio.duration;
+        updatePlaybackPosition();
+      }
+    });
+
+    audio.addEventListener("play", () => {
+      playButton.setAttribute("aria-pressed", "true");
+      playButton.setAttribute("aria-label", "Pausar canción");
+      setPlayerStatus("REPRODUCIENDO");
+      musicNote.textContent = "La playlist avanza sola al terminar cada canción";
+    });
+
+    audio.addEventListener("pause", () => {
+      playButton.setAttribute("aria-pressed", "false");
+      playButton.setAttribute("aria-label", "Reproducir canción");
+      if (!audio.ended && audio.currentSrc) setPlayerStatus("EN PAUSA");
+    });
+
+    audio.addEventListener("loadedmetadata", updatePlaybackPosition);
+    audio.addEventListener("timeupdate", updatePlaybackPosition);
+    audio.addEventListener("ended", () => {
+      if (selectedTrackIndex < tracks.length - 1) {
+        void selectTrack(selectedTrackIndex + 1, true);
+      } else {
+        playButton.setAttribute("aria-pressed", "false");
+        playButton.setAttribute("aria-label", "Reproducir canción");
+        setPlayerStatus("PLAYLIST COMPLETA");
+      }
+    });
+
+    audio.addEventListener("error", () => {
+      if (!audio.currentSrc) return;
+      setPlayerStatus("ERROR DE AUDIO");
+      musicNote.textContent = "No se pudo cargar esta canción. Revisá que el archivo esté publicado en assets.";
+      console.error(`Error al cargar ${tracks[selectedTrackIndex].title}.`, audio.error);
+    });
+
+    renderTrack();
   </script>
 </body>
 </html>
