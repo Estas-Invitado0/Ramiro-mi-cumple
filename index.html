@@ -42,7 +42,13 @@
 
     * { box-sizing: border-box; }
 
+    html {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
+      width: 100%;
       min-height: 100vh;
       margin: 0;
       overflow-x: hidden;
@@ -56,7 +62,7 @@
     }
 
     .page {
-      width: min(100% - 32px, 780px);
+      width: min(calc(100% - 32px), 780px);
       margin: 0 auto;
       padding: 30px 0 42px;
     }
@@ -830,7 +836,7 @@
     }
 
     @media (max-width: 480px) {
-      .page { width: min(100% - 20px, 780px); padding: 15px 0 24px; }
+      .page { width: min(calc(100% - 20px), 780px); padding: 15px 0 24px; }
       .invitation { border-radius: 23px; }
       .content { padding: 30px 20px; }
       .info-actions { grid-template-columns: 1fr; gap: 10px; }
@@ -1143,77 +1149,24 @@
       console.error(`Error al cargar ${tracks[selectedTrackIndex].title}.`, audio.error);
     });
 
-    const engineAudio = new Audio();
-    engineAudio.preload = "none";
-    engineAudio.volume = 0.55;
-    let activeActionButton = null;
+    const actionCards = document.querySelectorAll(".action-card");
 
-    for (const actionButton of document.querySelectorAll(".button-rsvp, .button-map")) {
-      actionButton.addEventListener("click", (event) => {
-        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        event.preventDefault();
-        if (activeActionButton) return;
+    if ("IntersectionObserver" in window) {
+      const carObserver = new IntersectionObserver((entries, observer) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.querySelector(".side-car").classList.add("is-revealed");
+          observer.unobserve(entry.target);
+        }
+      }, { threshold: 0.2 });
 
-        const destination = window.open("about:blank", "_blank");
-        activeActionButton = actionButton;
-        actionButton.dataset.launching = "true";
-        actionButton.setAttribute("aria-busy", "true");
-
-        const car = actionButton.closest(".action-card").querySelector(".side-car");
-        engineAudio.pause();
-        engineAudio.currentTime = 0;
-        engineAudio.src = actionButton.classList.contains("button-rsvp")
-          ? "assets/motor-verde-short.mp3"
-          : "assets/motor-azul-short.mp3";
-
-        let hasNavigated = false;
-        let hasAnimationEnded = false;
-        let hasSoundEnded = false;
-
-        const navigateToDestination = () => {
-          if (hasNavigated) return;
-          hasNavigated = true;
-          car.removeEventListener("animationend", handleAnimationEnd);
-          engineAudio.removeEventListener("ended", handleSoundEnd);
-          engineAudio.removeEventListener("error", handleSoundEnd);
-          engineAudio.pause();
-          engineAudio.currentTime = 0;
-          activeActionButton = null;
-          delete actionButton.dataset.launching;
-          actionButton.removeAttribute("aria-busy");
-
-          if (destination && !destination.closed) {
-            destination.opener = null;
-            destination.location.href = actionButton.href;
-          } else {
-            window.location.href = actionButton.href;
-          }
-        };
-
-        const navigateWhenReady = () => {
-          if (hasAnimationEnded && hasSoundEnded) navigateToDestination();
-        };
-
-        const handleSoundEnd = () => {
-          hasSoundEnded = true;
-          navigateWhenReady();
-        };
-
-        const handleAnimationEnd = (animationEvent) => {
-          if (animationEvent.animationName === "side-car-enter") {
-            hasAnimationEnded = true;
-            navigateWhenReady();
-          }
-        };
-
-        car.addEventListener("animationend", handleAnimationEnd);
-        engineAudio.addEventListener("ended", handleSoundEnd);
-        engineAudio.addEventListener("error", handleSoundEnd);
-        void engineAudio.play().catch(handleSoundEnd);
-        car.classList.remove("is-revealed");
-        void car.offsetWidth;
+      for (const card of actionCards) {
+        carObserver.observe(card);
+      }
+    } else {
+      for (const car of document.querySelectorAll(".side-car")) {
         car.classList.add("is-revealed");
-      });
+      }
     }
 
     renderTrack();
