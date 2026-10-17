@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10121c">
+  <title>¡Ramiro cumple! | Invitación</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #fff9e9;
+      --muted: #c2c4d2;
+      --red: #ff3b30;
+      --yellow: #ffd43b;
+      --blue: #43d9ff;
+      --panel: rgba(19, 22, 35, .86);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background:
+        linear-gradient(rgba(9, 13, 29, .32), rgba(9, 13, 29, .55)),
+        url("assets/background.jpg") center top / cover scroll,
+        #10121c;
+    }
+
+    .page {
+      width: min(100% - 32px, 780px);
+      margin: 0 auto;
+      padding: 30px 0 42px;
+    }
+
+    .invitation {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 30px;
+      background:
+        linear-gradient(145deg, rgba(31, 35, 54, .93), rgba(13, 15, 25, .95));
+      box-shadow: 0 16px 40px rgba(0,0,0,.4), 0 0 28px rgba(35, 118, 255, .08);
+      isolation: isolate;
+    }
+
+    .invitation::before,
+    .invitation::after {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      pointer-events: none;
+    }
+
+    .invitation::before {
+      width: 390px;
+      height: 390px;
+      top: -205px;
+      right: -170px;
+      border: 34px solid rgba(255, 59, 48, .14);
+      border-radius: 50%;
+      box-shadow: 0 0 0 28px rgba(255, 212, 59, .045), 0 0 0 60px rgba(67, 217, 255, .035);
+    }
+
+    .invitation::after {
+      width: 210px;
+      height: 210px;
+      bottom: 300px;
+      left: -110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 59, 48, .09), transparent 70%);
+    }
+
+    .top-stripe {
+      height: 10px;
+      background: linear-gradient(90deg, var(--red) 0 35%, var(--yellow) 35% 68%, var(--blue) 68%);
+    }
+
+    .content {
+      padding: clamp(26px, 6vw, 52px);
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 13px;
+      color: var(--yellow);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      width: 25px;
+      height: 2px;
+      content: "";
+      background: currentColor;
+    }
+
+    h1, h2, p { margin-top: 0; }
+
+    h1 {
+      margin: 0;
+      font-family: Impact, "Arial Narrow", sans-serif;
+      font-size: clamp(5rem, 19vw, 9rem);
+      font-weight: 900;
+      letter-spacing: -.045em;
+      line-height: .9;
+      text-transform: uppercase;
+      transform: skew(-5deg);
+      text-shadow: 0 5px 0 #b51618, 0 9px 0 #741215, 0 16px 28px rgba(0,0,0,.55);
+    }
+
+    h1 span {
+      display: block;
+      color: var(--red);
+      background: linear-gradient(180deg, #ffef78 0%, #ffb632 25%, #ff4938 62%, #ed162a 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 0 #991d22);
+    }
+
+    .age-badge {
+      display: inline-block;
+      margin: 12px 0 0;
+      padding: 6px 20px 8px;
+      border: 2px solid var(--yellow);
+      border-radius: 999px;
+      color: var(--yellow);
+      background: rgba(16, 18, 28, .95);
+      box-shadow: 0 4px 0 rgba(184, 132, 18, .8), 0 5px 14px rgba(0,0,0,.24);
+      font-family: Impact, "Arial Narrow", sans-serif;
+      font-size: clamp(1.7rem, 6vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+      transform: skew(-5deg);
+    }
+
+    .subtitle {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 3.8vw, 1.3rem);
+      font-weight: 800;
+    }
+
+    .cars {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: clamp(150px, 35vw, 245px);
+      margin: 12px -15px 0;
+    }
+
+    .cars::before {
+      position: absolute;
+      right: 3%;
+      bottom: 29px;
+      left: 3%;
+      height: 5px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, transparent, var(--blue), var(--yellow), var(--red), transparent);
+      box-shadow: 0 0 22px rgba(67,217,255,.38);
+    }
+
+    .cars img {
+      position: relative;
+      width: 37%;
+      max-width: 230px;
+      max-height: 220px;
+      object-fit: contain;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .cars img:nth-child(2) {
+      z-index: 1;
+      width: 43%;
+      max-width: 260px;
+      margin: 0 -9%;
+      animation-delay: -.9s;
+    }
+
+    .cars img:nth-child(3) { animation-delay: -1.7s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(3px) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    .info-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 28px 0 0;
+      text-align: left;
+    }
+
+    .action-card {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      min-height: 208px;
+      padding: 19px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 17px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .detail-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--blue);
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .detail strong {
+      display: block;
+      font-size: clamp(1rem, 4vw, 1.27rem);
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .detail + .detail { margin-top: 13px; }
+
+    .message {
+      margin: 0 0 18px;
+      font-family: Impact, "Arial Narrow", sans-serif;
+      font-size: clamp(1.7rem, 6vw, 2.35rem);
+      font-weight: 800;
+      letter-spacing: .015em;
+      text-transform: uppercase;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+      margin: 0 auto 28px;
+      max-width: 540px;
+    }
+
+    .count-box {
+      padding: 13px 7px 11px;
+      border: 1px solid rgba(255,212,59,.28);
+      border-radius: 13px;
+      background: linear-gradient(180deg, rgba(255,212,59,.12), rgba(255,255,255,.035));
+    }
+
+    .count-number {
+      display: block;
+      color: var(--yellow);
+      font-family: Impact, "Arial Narrow", sans-serif;
+      font-size: clamp(2.1rem, 9vw, 3.3rem);
+      font-weight: 900;
+      line-height: .95;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .count-label {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: .65rem;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 13px 22px;
+      border: 0;
+      border-radius: 999px;
+      color: #16151a;
+      font: 900 1rem "Trebuchet MS", Arial, sans-serif;
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease;
+      margin-top: auto;
+    }
+
+    .button:hover { transform: translateY(-3px); }
+    .button:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+
+    .button-map {
+      background: var(--yellow);
+      box-shadow: 0 5px 0 #b88412, 0 10px 24px rgba(255,212,59,.17);
+    }
+
+    .button-rsvp {
+      color: white;
+      background: var(--red);
+      box-shadow: 0 5px 0 #a71e1b, 0 10px 24px rgba(255,59,48,.2);
+    }
+
+    .footer {
+      margin: 24px 0 0;
+      color: #85899b;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 480px) {
+      .page { width: min(100% - 20px, 780px); padding: 15px 0 24px; }
+      .invitation { border-radius: 23px; }
+      .content { padding: 30px 20px; }
+      .info-actions { grid-template-columns: 1fr; gap: 10px; }
+      .action-card { min-height: 0; padding: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <article class="invitation">
+      <div class="top-stripe" aria-hidden="true"></div>
+      <div class="content">
+        <p class="eyebrow">¡Estás invitado!</p>
+        <h1><span>Ramiro</span></h1>
+        <p class="age-badge">¡Cumplo 7!</p>
+        <p class="subtitle">¡Preparate para una fiesta a toda velocidad!</p>
+
+        <div class="cars" aria-label="Autos de carrera">
+          <img src="assets/car-8.png" alt="Auto de carrera azul" width="700" height="476" fetchpriority="high" decoding="async">
+          <img src="assets/car-10.png" alt="Auto de carrera rojo" width="1002" height="672" fetchpriority="high" decoding="async">
+          <img src="assets/car-9.png" alt="Auto de carrera amarillo" width="1002" height="672" fetchpriority="high" decoding="async">
+        </div>
+
+        <p class="message">¡Te espero para festejar mi cumple!</p>
+        <div class="countdown" role="timer" aria-label="Cuenta regresiva para el cumpleaños">
+          <div class="count-box"><span class="count-number" id="days">00</span><span class="count-label">Días</span></div>
+          <div class="count-box"><span class="count-number" id="hours">00</span><span class="count-label">Horas</span></div>
+          <div class="count-box"><span class="count-number" id="minutes">00</span><span class="count-label">Minutos</span></div>
+          <div class="count-box"><span class="count-number" id="seconds">00</span><span class="count-label">Segundos</span></div>
+        </div>
+
+        <section class="info-actions" aria-label="Detalles y acciones de la fiesta">
+          <div class="action-card">
+            <div class="detail">
+              <span class="detail-label">Fecha</span>
+              <strong>24 de octubre</strong>
+            </div>
+            <div class="detail">
+              <span class="detail-label">Horario</span>
+              <strong>18 a 21 hs</strong>
+            </div>
+            <a class="button button-rsvp" href="https://wa.me/?text=%C2%A1Hola%21%20Confirmo%20mi%20asistencia%20al%20cumple%20de%20Ramiro%20el%2024%20de%20octubre." target="_blank" rel="noopener noreferrer">
+              Confirmar asistencia
+            </a>
+          </div>
+          <div class="action-card">
+            <div class="detail">
+              <span class="detail-label">Lugar</span>
+              <strong>Crucijuegos<br>(Hiper Libertad)</strong>
+            </div>
+            <a class="button button-map" href="https://maps.app.goo.gl/ZgxGAe62a5qJFNC79" target="_blank" rel="noopener noreferrer">
+              Ver ubicación
+            </a>
+          </div>
+        </section>
+        <p class="footer">¡Nos vemos en la largada!</p>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const partyDate = new Date(2026, 9, 24, 18, 0, 0);
+    const units = {
+      days: 86400000,
+      hours: 3600000,
+      minutes: 60000,
+      seconds: 1000
+    };
+
+    function updateCountdown() {
+      let remaining = Math.max(0, partyDate.getTime() - Date.now());
+
+      for (const [unit, duration] of Object.entries(units)) {
+        const value = Math.floor(remaining / duration);
+        document.getElementById(unit).textContent = String(value).padStart(2, "0");
+        remaining %= duration;
+      }
+    }
+
+    updateCountdown();
+    window.setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
