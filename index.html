@@ -562,7 +562,7 @@
       pointer-events: none;
       z-index: 2;
       opacity: 0;
-      transform: translateX(28px) scaleX(-1) rotate(-8deg);
+      transform: translate3d(28px, 0, 0) scaleX(-1) rotate(-8deg);
       filter: saturate(1.05) contrast(1.08) drop-shadow(0 16px 18px rgba(0,0,0,.28));
     }
 
@@ -597,8 +597,8 @@
     }
 
     @keyframes side-car-enter {
-      from { opacity: 0; transform: translateX(28px) scaleX(-1) rotate(-8deg); }
-      to { opacity: .9; transform: scaleX(-1) rotate(-8deg); }
+      from { opacity: 0; transform: translate3d(28px, 0, 0) scaleX(-1) rotate(-8deg); }
+      to { opacity: .9; transform: translate3d(0, 0, 0) scaleX(-1) rotate(-8deg); }
     }
 
     .action-card::before {
@@ -842,6 +842,9 @@
       .info-actions { grid-template-columns: 1fr; gap: 10px; }
       .brand-logo { width: min(60%, 180px); }
       .action-card { min-height: 0; padding: 18px; }
+      .side-car { filter: none; }
+      .side-car::after { display: none; }
+      .side-car.is-revealed { animation-duration: 650ms; }
       .music-player { padding: 15px; border-radius: 16px; }
       .player-controls { margin: 17px 0; }
       .transport-primary { width: 76px; height: 76px; }
