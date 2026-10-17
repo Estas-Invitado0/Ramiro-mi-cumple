@@ -32,6 +32,10 @@
       --yellow: #ffd43b;
       --blue: #43d9ff;
       --panel: rgba(19, 22, 35, .86);
+      --panel-strong: rgba(11, 14, 24, .96);
+      --card: rgba(22, 27, 41, .92);
+      --line: rgba(255,255,255,.14);
+      --shadow: rgba(0,0,0,.42);
       --font-display: "Barlow Condensed", Impact, "Arial Narrow", sans-serif;
       --font-copy: "Rajdhani", "Trebuchet MS", Arial, sans-serif;
     }
@@ -60,11 +64,11 @@
     .invitation {
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,.15);
+      border: 1px solid var(--line);
       border-radius: 30px;
       background:
-        linear-gradient(145deg, rgba(31, 35, 54, .93), rgba(13, 15, 25, .95));
-      box-shadow: 0 16px 40px rgba(0,0,0,.4), 0 0 28px rgba(35, 118, 255, .08);
+        linear-gradient(180deg, rgba(22, 26, 39, .98), rgba(11, 13, 22, .98));
+      box-shadow: 0 18px 42px rgba(0,0,0,.42), 0 0 28px rgba(67, 217, 255, .06);
       isolation: isolate;
     }
 
@@ -129,7 +133,8 @@
       display: block;
       width: min(52%, 200px);
       height: auto;
-      margin: 0 auto 2px;
+      margin: 0 auto 6px;
+      filter: drop-shadow(0 7px 15px rgba(0,0,0,.2));
     }
 
     h1, h2, p { margin-top: 0; }
@@ -241,10 +246,10 @@
       width: min(100%, 620px);
       margin: 12px auto 34px;
       padding: 20px;
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(31,38,57,.98), rgba(12,16,29,.98));
-      box-shadow: 0 9px 0 rgba(0,0,0,.25), 0 16px 32px rgba(0,0,0,.2);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(22, 27, 41, .96), rgba(12,16,29,.98));
+      box-shadow: 0 10px 0 rgba(0,0,0,.22), 0 18px 32px rgba(0,0,0,.18);
       text-align: left;
     }
 
@@ -537,10 +542,10 @@
       min-height: 250px;
       padding: 20px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.12);
       border-radius: 18px;
-      background: linear-gradient(145deg, rgba(31, 38, 57, .98), rgba(12, 16, 29, .98));
-      box-shadow: 0 8px 0 rgba(0,0,0,.24), inset 0 1px rgba(255,255,255,.06);
+      background: linear-gradient(180deg, rgba(24, 29, 45, .98), rgba(11, 14, 22, .98));
+      box-shadow: 0 9px 0 rgba(0,0,0,.2), inset 0 1px rgba(255,255,255,.04);
     }
 
     .action-card::before {
@@ -758,13 +763,13 @@
     .button:focus-visible { outline: 3px solid white; outline-offset: 4px; }
 
     .button-map {
-      background: var(--yellow);
+      background: linear-gradient(180deg, #ffe77a 0%, #ffd43b 100%);
       box-shadow: 0 5px 0 #b88412, 0 10px 24px rgba(255,212,59,.17);
     }
 
     .button-rsvp {
       color: white;
-      background: var(--red);
+      background: linear-gradient(180deg, #ff665f 0%, #ff3b30 100%);
       box-shadow: 0 5px 0 #a71e1b, 0 10px 24px rgba(255,59,48,.2);
     }
 
@@ -782,6 +787,7 @@
       .invitation { border-radius: 23px; }
       .content { padding: 30px 20px; }
       .info-actions { grid-template-columns: 1fr; gap: 10px; }
+      .brand-logo { width: min(60%, 180px); }
       .action-card { min-height: 0; padding: 18px; }
       .music-player { padding: 15px; border-radius: 16px; }
       .player-controls { margin: 17px 0; }
@@ -1081,10 +1087,4 @@
       if (!audio.currentSrc) return;
       setPlayerStatus("ERROR DE AUDIO");
       musicNote.textContent = "No se pudo cargar esta canción. Revisá que el archivo esté publicado en assets.";
-      console.error(`Error al cargar ${tracks[selectedTrackIndex].title}.`, audio.error);
-    });
-
-    renderTrack();
-  </script>
-</body>
-</html>
+      c
