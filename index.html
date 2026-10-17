@@ -1087,4 +1087,10 @@
       if (!audio.currentSrc) return;
       setPlayerStatus("ERROR DE AUDIO");
       musicNote.textContent = "No se pudo cargar esta canción. Revisá que el archivo esté publicado en assets.";
-      c
+      console.error(`Error al cargar ${tracks[selectedTrackIndex].title}.`, audio.error);
+    });
+
+    renderTrack();
+  </script>
+</body>
+</html>
