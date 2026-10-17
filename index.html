@@ -1154,6 +1154,7 @@
         event.preventDefault();
         if (activeActionButton) return;
 
+        const destination = window.open("about:blank", "_blank");
         activeActionButton = actionButton;
         actionButton.dataset.launching = "true";
         actionButton.setAttribute("aria-busy", "true");
@@ -1181,7 +1182,6 @@
           delete actionButton.dataset.launching;
           actionButton.removeAttribute("aria-busy");
 
-          const destination = window.open("about:blank", "_blank");
           if (destination && !destination.closed) {
             destination.opener = null;
             destination.location.href = actionButton.href;
